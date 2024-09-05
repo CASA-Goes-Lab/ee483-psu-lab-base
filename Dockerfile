@@ -1,7 +1,8 @@
 # parameters
-ARG REPO_NAME="ee483-ros-basics"
+ARG REPO_NAME="ee483-"
 ARG DESCRIPTION="MM Labs ee483"
 ARG MAINTAINER="Names of everyone in your group"
+# Change line 2 to match exactly the name of your repo
 # pick an icon from: https://fontawesome.com/v4.7.0/icons/
 ARG ICON="cube"
 
