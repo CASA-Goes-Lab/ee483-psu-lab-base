@@ -1,8 +1,7 @@
 # parameters
-ARG REPO_NAME="ee483-"
-ARG DESCRIPTION="MM Labs ee483"
-ARG MAINTAINER="Names of everyone in your group"
-# Change line 2 to match exactly the name of your repo
+ARG REPO_NAME="lab-devel"
+ARG DESCRIPTION="lab-devel"
+ARG MAINTAINER="Romulo"
 # pick an icon from: https://fontawesome.com/v4.7.0/icons/
 ARG ICON="cube"
 
@@ -32,7 +31,7 @@ ARG LAUNCHER
 RUN dt-build-env-check "${REPO_NAME}" "${MAINTAINER}" "${DESCRIPTION}"
 
 # define/create repository path
-ARG COURSE_PATH="${CATKIN_WS_DIR}/src/ee483"
+# ARG COURSE_PATH="${CATKIN_WS_DIR}/src/ee483"
 ARG REPO_PATH="${CATKIN_WS_DIR}/src/${REPO_NAME}"
 ARG LAUNCH_PATH="${LAUNCH_DIR}/${REPO_NAME}"
 RUN mkdir -p "${REPO_PATH}"
@@ -49,16 +48,15 @@ ENV DT_LAUNCH_PATH "${LAUNCH_PATH}"
 ENV DT_LAUNCHER "${LAUNCHER}"
 
 # install apt dependencies
-COPY ./Lab1-open-loopMM/lab1-recipe/dependencies-apt.txt "${REPO_PATH}/"
+COPY ./dependencies-apt.txt "${REPO_PATH}/"
 RUN dt-apt-install ${REPO_PATH}/dependencies-apt.txt
 
 # install python3 dependencies
-COPY ./Lab1-open-loopMM/lab1-recipe/dependencies-py3.txt "${REPO_PATH}/"
+COPY ./dependencies-py3.txt "${REPO_PATH}/"
 RUN pip3 install -r ${REPO_PATH}/dependencies-py3.txt
 
 # copy the source 
-COPY ./Lab1-open-loopMM/lab1/packages "${REPO_PATH}/packages"
-COPY ./Lab1-open-loopMM/lab1/ex_workspace/src/. "${REPO_PATH}/ex_workspace"
+COPY ./packages "${REPO_PATH}/packages"
 
 # build packages
 RUN . /opt/ros/${ROS_DISTRO}/setup.sh && \
@@ -66,8 +64,8 @@ RUN . /opt/ros/${ROS_DISTRO}/setup.sh && \
     --workspace ${CATKIN_WS_DIR}/
 
 # install launcher scripts
-COPY ./Lab1-open-loopMM/lab1-recipe/launchers/. "${LAUNCH_PATH}/"
-COPY ./Lab1-open-loopMM/lab1-recipe/launchers/default.sh "${LAUNCH_PATH}/"
+# COPY ./ex3-recipe/launchers/. "${LAUNCH_PATH}/"
+COPY ./launchers/default.sh "${LAUNCH_PATH}/"
 RUN dt-install-launchers "${LAUNCH_PATH}"
 
 # define default command
